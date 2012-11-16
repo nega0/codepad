@@ -34,3 +34,21 @@ If you want codepad.org to run your file, add the "-r" flag
 
     $ codepad -r -l c runme.c
 
+
+Install
+-------
+
+Requires `perl`, `LWP`, and `HTTP::Request::Common`. If you don't
+already have them, install them via your OS's package manager...
+
+    $ sudo apt-get install perl libwww-perl libhttp-message-perl
+
+or via cpan
+
+    $ sudo cpan LWP
+    $ sudo cpan HTTP::Request::Common
+
+Then copy `codepad` to someplace in your path
+
+    $ cp codepad ~/bin/
+    $ chmod a+x ~/bin/codepad
