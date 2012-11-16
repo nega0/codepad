@@ -18,23 +18,23 @@ if ($@) {
 our ($opt_l, $opt_p, $opt_n, $opt_r);
 getopts('l:npr');
 
-my %file_types => {'c'      => 'C',
-                   'cc'     => 'C++',
-                   'cxx'    => 'C++',
-                   'cpp'    => 'C++',
-                   'd'      => 'D',
-                   'hs'     => 'Haskell',
-                   'lua'    => 'Lua',
-                   'ml'     => 'OCaml',
-                   'php'    => 'PHP',
-                   'pl'     => 'Perl',
-                   'perl'   => 'Perl',
-                   'txt'    => 'Plain Text',
-                   'py'     => 'Python',
-                   'python' => 'Python',
-                   'rb'     => 'Ruby',
-                   'scm'    => 'Scheme',
-                   'tcl'    => 'Tcl'};
+my %file_types = {'c'      => 'C',
+                  'cc'     => 'C++',
+                  'cxx'    => 'C++',
+                  'cpp'    => 'C++',
+                  'd'      => 'D',
+                  'hs'     => 'Haskell',
+                  'lua'    => 'Lua',
+                  'ml'     => 'OCaml',
+                  'php'    => 'PHP',
+                  'pl'     => 'Perl',
+                  'perl'   => 'Perl',
+                  'txt'    => 'Plain Text',
+                  'py'     => 'Python',
+                  'python' => 'Python',
+                  'rb'     => 'Ruby',
+                  'scm'    => 'Scheme',
+                  'tcl'    => 'Tcl'};
 
 if ($opt_l) {
   if (not exists ${file_types{$opt_l}}) {
