@@ -56,4 +56,4 @@ Then copy `codepad` to someplace in your path
 License
 -------
 
-See the accompanying file LICENSE for license/copyright info
+Too trivial. Public domain.

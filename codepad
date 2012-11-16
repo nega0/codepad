@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-## see the accompanying file LICENSE for license/copyright info
+## public domain
 
 use HTTP::Request::Common;
 use LWP::UserAgent;
