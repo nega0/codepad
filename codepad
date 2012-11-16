@@ -1,0 +1,72 @@
+#!/usr/bin/perl -w
+## see the accompanying file
+use HTTP::Request::Common;
+use LWP::UserAgent;
+use Getopt::Std;
+use strict;
+
+## conditionally look for a clipboard
+my $clip = 1;
+eval "use Clipboard;";
+if ($@) {
+   $clip = 0;
+}
+
+## parse options
+our ($opt_l, $opt_p, $opt_n, $opt_r);
+getopts('l:npr');
+
+my %file_types => {'c'      => 'C',
+                   'cc'     => 'C++',
+                   'cxx'    => 'C++',
+                   'cpp'    => 'C++',
+                   'd'      => 'D',
+                   'hs'     => 'Haskell',
+                   'lua'    => 'Lua',
+                   'ml'     => 'OCaml',
+                   'php'    => 'PHP',
+                   'pl'     => 'Perl',
+                   'perl'   => 'Perl',
+                   'txt'    => 'Plain Text',
+                   'py'     => 'Python',
+                   'python' => 'Python',
+                   'rb'     => 'Ruby',
+                   'scm'    => 'Scheme',
+                   'tcl'    => 'Tcl'};
+
+if ($opt_l) {
+  if (not exists ${file_types{$opt_l}}) {
+    die "Unsupported language";
+  }
+}
+
+## options/filenames after getopt did its parsing
+if ($#ARGV > 0) {
+  die "Be nice to codepad.org. Paste one file at a time.\n"
+}
+
+## default values
+my $code    = [ do { local $\; <>; } ];
+my $private = !$opt_p ? "True" : "False";
+my $lang    = !$opt_l ? 'Plain Text' : ${file_types{$opt_l}};
+my $run     =  $opt_r ? "True" : "False";
+my $data    = [ 'code' => "@$code",
+                'lang' => $lang,
+                'run'  => $run,
+                'private' => $private,
+                'submit' => "Submit",
+              ];
+
+my $req = POST "http://codepad.org/", $data;
+print $req->as_string;
+
+unless ($opt_n) {
+  my $ua = LWP::UserAgent->new;
+  my $r = $ua->request($req);
+  #print $r->as_string;
+  if ($clip) {
+    Clipboard->copy($r->header("Location"));
+  } else {
+    print $r->header("Location") . "\n";
+  }
+}
