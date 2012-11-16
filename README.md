@@ -48,6 +48,9 @@ or via cpan
     $ sudo cpan LWP
     $ sudo cpan HTTP::Request::Common
 
+You can optionally install `Clipboard` from cpan and `codepad` will put
+the url into your X11/Mac/Win32 clipboard instead of printing it to stdout.
+
 Then copy `codepad` to someplace in your path
 
     $ cp codepad ~/bin/
