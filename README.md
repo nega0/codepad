@@ -2,10 +2,9 @@ Codepad
 =======
 
 A simple interface to http://codepad.org. There are many like it. This
-one is mine. I was tempted to use
-https://github.com/daltonmatos/codepad/, but I didn't like how it was
-a "proper" python app. I just wanted something smaller and in a single
-file.
+one is mine. I was tempted to use https://github.com/daltonmatos/codepad/
+but I didn't like how it was a "proper" python app. I just wanted
+something smaller and in a single file.
 
 Usage
 -----
