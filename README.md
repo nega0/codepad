@@ -52,3 +52,8 @@ Then copy `codepad` to someplace in your path
 
     $ cp codepad ~/bin/
     $ chmod a+x ~/bin/codepad
+
+License
+-------
+
+See the accompanying file LICENSE for license/copyright info

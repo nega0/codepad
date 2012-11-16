@@ -1,5 +1,7 @@
 #!/usr/bin/perl -w
-## see the accompanying file
+
+## see the accompanying file LICENSE for license/copyright info
+
 use HTTP::Request::Common;
 use LWP::UserAgent;
 use Getopt::Std;
