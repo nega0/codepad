@@ -10,9 +10,18 @@ use strict;
 
 ## conditionally look for a clipboard
 my $clip = 1;
-eval "use Clipboard;";
-if ($@) {
-   $clip = 0;
+if (($^O ne "darwin") and ($^O ne "MSWin32")) {
+  ## assume unix
+  if (exists($ENV{"DISPLAY"})) {
+    eval "use Clipboard;";
+    if ($@) {
+      ## loading clipboard failed
+      $clip = 0;
+    }
+  } else {
+    ## cant find X11 on unix
+    $clip = 0;
+  }
 }
 
 ## parse options
