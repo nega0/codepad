@@ -8,22 +8,6 @@ use File::Basename;
 use Getopt::Std;
 use strict;
 
-## conditionally look for a clipboard
-my $clip = 1;
-if (($^O ne "darwin") and ($^O ne "MSWin32")) {
-  ## assume unix
-  if (exists($ENV{"DISPLAY"})) {
-    eval "use Clipboard;";
-    if ($@) {
-      ## loading clipboard failed
-      $clip = 0;
-    }
-  } else {
-    ## cant find X11 on unix
-    $clip = 0;
-  }
-}
-
 ## parse options
 our ($opt_l, $opt_p, $opt_n, $opt_r);
 getopts('l:npr');
@@ -51,6 +35,22 @@ my $lang    = !$opt_l ? 'Plain Text' : ${file_types{$opt_l}};
 my $run     =  $opt_r ? "True" : "False";
 
 ## no user serviceable parts inside
+
+## conditionally look for a clipboard
+my $clip = 1;
+if (($^O ne "darwin") and ($^O ne "MSWin32")) {
+  ## assume unix
+  if (exists($ENV{"DISPLAY"})) {
+    eval "use Clipboard;";
+    if ($@) {
+      ## loading clipboard failed
+      $clip = 0;
+    }
+  } else {
+    ## cant find X11 on unix
+    $clip = 0;
+  }
+}
 
 ## abort early on a bad lanuguage
 if ($opt_l) {
