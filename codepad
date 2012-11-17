@@ -70,12 +70,12 @@ if (($^O ne "darwin") and ($^O ne "MSWin32")) {
 ### av: $#ARGV
 ### av0: $ARGV[0]
 my $no_ext = 1;  ## true, don't know filetype by its extension
-if ($ARGV[0]) {
+if (!$opt_l and $ARGV[0]) {
   my ($b, $d, $e) = fileparse($ARGV[0], qr/[^.]+$/);
   ### opt_l: $opt_l
   ### extension: $e
   ### ft: ${file_types{$e}}
-  if (!$opt_l and $e and exists ${file_types{$e}}) {
+  if ($e and exists ${file_types{$e}}) {
     $lang = ${file_types{$e}};
     ### lang: $lang
     $no_ext = 0;  ## yay! i figured it out
