@@ -25,14 +25,24 @@ If you want your post to be public, use the "-p" flag.
 
     $ codepad not_so_secret.txt
 
-If you want to change the language from the default of "Plain Text",
-use the "-l" flag. (See the source for language options.)
-
-    $ codepad -l cool_file.py
-
 If you want codepad.org to run your file, add the "-r" flag
 
     $ codepad -r -l c runme.c
+
+`codepad` will determine the file type from the file extension. If it
+can't figure it out (or the file doesn't have one), it will look for a
+sh-bang line (#!) at the start of the file. Otherwise it will use a
+default filetype of "Plain Text". You can always choose the filetype
+yourself with the "-l" flag. (See the source for language options.)
+
+    $ cat snakey_file
+    ## im a python file!
+
+    import module
+
+    module.do_stuff()
+    print "Sss!"
+    $ codepad -l python snakey_file
 
 
 Install
