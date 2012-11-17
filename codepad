@@ -60,7 +60,7 @@ my $data    = [ 'code' => "@$code",
               ];
 
 my $req = POST "http://codepad.org/", $data;
-print $req->as_string;
+#print $req->as_string;
 
 unless ($opt_n) {
   my $ua = LWP::UserAgent->new;
