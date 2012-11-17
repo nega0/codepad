@@ -28,8 +28,10 @@ my %file_types = ('c'      => 'C',
                   'py'     => 'Python',
                   'python' => 'Python',
                   'rb'     => 'Ruby',
+                  'ruby'   => 'Ruby',
                   'scm'    => 'Scheme',
-                  'tcl'    => 'Tcl');
+                  'tcl'    => 'Tcl',
+                  'tclsh'  => 'Tcl',);
 my $private = !$opt_p ? "True" : "False";
 my $lang    = !$opt_l ? 'Plain Text' : ${file_types{$opt_l}};
 my $run     =  $opt_r ? "True" : "False";
@@ -67,6 +69,7 @@ if (($^O ne "darwin") and ($^O ne "MSWin32")) {
 ## file extension handling
 ### av: $#ARGV
 ### av0: $ARGV[0]
+my $no_ext = 1;  ## true, don't know filetype by its extension
 if ($ARGV[0]) {
   my ($b, $d, $e) = fileparse($ARGV[0], qr/[^.]+$/);
   ### opt_l: $opt_l
@@ -75,6 +78,7 @@ if ($ARGV[0]) {
   if (!$opt_l and $e and exists ${file_types{$e}}) {
     $lang = ${file_types{$e}};
     ### lang: $lang
+    $no_ext = 0;  ## yay! i figured it out
   }
 }
 
@@ -86,6 +90,14 @@ my $data    = [ 'code' => "@$code",
                 'private' => $private,
                 'submit' => "Submit",
               ];
+
+## sh-bang handling
+if (!opt_l and $no_ext) {
+  my $sb = substr($code->[0], 0, -1);
+  if ($sb =~ /^#![^\s]+\/(?:env\s+)?([^\s]+)/) {
+    $lang = $1;
+  }
+}
 
 my $req = POST "http://codepad.org/", $data;
 ### $req->as_string;
