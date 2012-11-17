@@ -67,17 +67,11 @@ if (($^O ne "darwin") and ($^O ne "MSWin32")) {
 }
 
 ## file extension handling
-### av: $#ARGV
-### av0: $ARGV[0]
 my $no_ext = 1;  ## true, don't know filetype by its extension
 if (!$opt_l and $ARGV[0]) {
   my ($b, $d, $e) = fileparse($ARGV[0], qr/[^.]+$/);
-  ### opt_l: $opt_l
-  ### extension: $e
-  ### ft: ${file_types{$e}}
   if ($e and exists ${file_types{$e}}) {
     $lang = ${file_types{$e}};
-    ### lang: $lang
     $no_ext = 0;  ## yay! i figured it out
   }
 }
@@ -100,12 +94,12 @@ if (!opt_l and $no_ext) {
 }
 
 my $req = POST "http://codepad.org/", $data;
-### $req->as_string;
+### req: $req->as_string;
 
 unless ($opt_n) {
   my $ua = LWP::UserAgent->new;
   my $r = $ua->request($req);
-  ### print $r->as_string;
+  ### r: $r->as_string;
   if ($clip) {
     Clipboard->copy($r->header("Location"));
   } else {
