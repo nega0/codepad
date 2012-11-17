@@ -23,7 +23,7 @@ or a file.
 
 If you want your post to be public, use the "-p" flag.
 
-    $ codepad not_so_secret.txt
+    $ codepad -p not_so_secret.txt
 
 If you want codepad.org to run your file, add the "-r" flag
 
