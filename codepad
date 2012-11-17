@@ -18,6 +18,7 @@ if ($@) {
 our ($opt_l, $opt_p, $opt_n, $opt_r);
 getopts('l:npr');
 
+## default values
 my %file_types = {'c'      => 'C',
                   'cc'     => 'C++',
                   'cxx'    => 'C++',
@@ -35,7 +36,13 @@ my %file_types = {'c'      => 'C',
                   'rb'     => 'Ruby',
                   'scm'    => 'Scheme',
                   'tcl'    => 'Tcl'};
+my $private = !$opt_p ? "True" : "False";
+my $lang    = !$opt_l ? 'Plain Text' : ${file_types{$opt_l}};
+my $run     =  $opt_r ? "True" : "False";
 
+## no user serviceable parts inside
+
+## abort early on a bad lanuguage
 if ($opt_l) {
   if (not exists ${file_types{$opt_l}}) {
     die "Unsupported language";
@@ -47,11 +54,8 @@ if ($#ARGV > 0) {
   die "Be nice to codepad.org. Paste one file at a time.\n"
 }
 
-## default values
+## construct data to feed to our request
 my $code    = [ do { local $\; <>; } ];
-my $private = !$opt_p ? "True" : "False";
-my $lang    = !$opt_l ? 'Plain Text' : ${file_types{$opt_l}};
-my $run     =  $opt_r ? "True" : "False";
 my $data    = [ 'code' => "@$code",
                 'lang' => $lang,
                 'run'  => $run,
@@ -60,12 +64,12 @@ my $data    = [ 'code' => "@$code",
               ];
 
 my $req = POST "http://codepad.org/", $data;
-#print $req->as_string;
+### $req->as_string;
 
 unless ($opt_n) {
   my $ua = LWP::UserAgent->new;
   my $r = $ua->request($req);
-  #print $r->as_string;
+  ### print $r->as_string;
   if ($clip) {
     Clipboard->copy($r->header("Location"));
   } else {
