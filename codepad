@@ -86,7 +86,7 @@ my $data    = [ 'code' => "@$code",
               ];
 
 ## sh-bang handling
-if (!opt_l and $no_ext) {
+if (!$opt_l and $no_ext) {
   my $sb = substr($code->[0], 0, -1);
   if ($sb =~ /^#![^\s]+\/(?:env\s+)?([^\s]+)/) {
     my $e = $1;
