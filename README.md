@@ -27,7 +27,7 @@ If you want your post to be public, use the "-p" flag.
 
 If you want codepad.org to run your file, add the "-r" flag
 
-    $ codepad -r -l c runme.c
+    $ codepad -r runme.c
 
 `codepad` will determine the file type from the file extension. If it
 can't figure it out (or the file doesn't have one), it will look for a
@@ -44,6 +44,7 @@ yourself with the "-l" flag. (See the source for language options.)
     print "Sss!"
     $ codepad -l python snakey_file
 
+You can, of course, combine the above options.
 
 Install
 -------
