@@ -4,6 +4,7 @@
 
 use HTTP::Request::Common;
 use LWP::UserAgent;
+use File::Basename;
 use Getopt::Std;
 use strict;
 
@@ -52,6 +53,20 @@ if ($opt_l) {
 ## options/filenames after getopt did its parsing
 if ($#ARGV > 0) {
   die "Be nice to codepad.org. Paste one file at a time.\n"
+}
+
+## file extension handling
+### av: $#ARGV
+### av0: $ARGV[0]
+if ($ARGV[0]) {
+  my ($b, $d, $e) = fileparse($ARGV[0], qr/[^.]+$/);
+  ### opt_l: $opt_l
+  ### extension: $e
+  ### ft: ${file_types{$e}}
+  if (!$opt_l and $e and exists ${file_types{$e}}) {
+    $lang = ${file_types{$e}};
+    ### lang: $lang
+  }
 }
 
 ## construct data to feed to our request
