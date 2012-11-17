@@ -36,6 +36,18 @@ my $run     =  $opt_r ? "True" : "False";
 
 ## no user serviceable parts inside
 
+## abort early on a bad lanuguage
+if ($opt_l) {
+  if (not exists ${file_types{$opt_l}}) {
+    die "Unsupported language";
+  }
+}
+
+## options/filenames after getopt did its parsing
+if ($#ARGV > 0) {
+  die "Be nice to codepad.org. Paste one file at a time.\n"
+}
+
 ## conditionally look for a clipboard
 my $clip = 1;
 if (($^O ne "darwin") and ($^O ne "MSWin32")) {
@@ -50,18 +62,6 @@ if (($^O ne "darwin") and ($^O ne "MSWin32")) {
     ## cant find X11 on unix
     $clip = 0;
   }
-}
-
-## abort early on a bad lanuguage
-if ($opt_l) {
-  if (not exists ${file_types{$opt_l}}) {
-    die "Unsupported language";
-  }
-}
-
-## options/filenames after getopt did its parsing
-if ($#ARGV > 0) {
-  die "Be nice to codepad.org. Paste one file at a time.\n"
 }
 
 ## file extension handling
