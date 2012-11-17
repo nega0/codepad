@@ -19,7 +19,7 @@ our ($opt_l, $opt_p, $opt_n, $opt_r);
 getopts('l:npr');
 
 ## default values
-my %file_types = {'c'      => 'C',
+my %file_types = ('c'      => 'C',
                   'cc'     => 'C++',
                   'cxx'    => 'C++',
                   'cpp'    => 'C++',
@@ -35,7 +35,7 @@ my %file_types = {'c'      => 'C',
                   'python' => 'Python',
                   'rb'     => 'Ruby',
                   'scm'    => 'Scheme',
-                  'tcl'    => 'Tcl'};
+                  'tcl'    => 'Tcl');
 my $private = !$opt_p ? "True" : "False";
 my $lang    = !$opt_l ? 'Plain Text' : ${file_types{$opt_l}};
 my $run     =  $opt_r ? "True" : "False";
